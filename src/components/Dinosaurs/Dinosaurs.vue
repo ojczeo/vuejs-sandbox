@@ -1,9 +1,10 @@
 <template>
-  <div id="dinosaurs">
+  <div>
     <header>{{title}}</header>
     <p>{{content}}</p>
     <div>
-      <input id="itemForm">
+      <input id="itemForm" type="text" placeholder="Dino name">
+      <input id="itemFormWeight" type="number" placeholder="Dino weight">
       <button v-on:click="addItem">Add Dinosaur</button>
     </div>
     <ul>
@@ -14,20 +15,20 @@
       </li>
     </ul>
   </div>
-
 </template>
 
 <script>
 
 export default {
+  name: 'dinosaurs',
   data: () => {
     return {
       title: 'dinosaurs',
       content: 'molto bene',
       dinos: [
-        { text: 'Velociraptor' },
-        { text: 'Mastodont' },
-        { text: 'Paczkozaur' }
+        { text: 'Velociraptor', weight: 10 },
+        { text: 'Mastodont', weight: 10 },
+        { text: 'Paczkozaur', weight: 10 }
       ]
     }
   },
@@ -51,18 +52,20 @@ export default {
   methods: {
     addItem: function () {
       const input = document.getElementById('itemForm')
-      this.items.push({ text: input.value })
+      const inputWeight = document.getElementById('itemFormWeight')
+      this.dinos.push({ text: input.value, weight: inputWeight.value })
       input.value = ''
     },
     deleteItem: function (index) {
-      this.items.splice(index, 1)
+      this.dinos.splice(index, 1)
     }
   }
 }
+
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 h1, h2 {
   font-weight: normal;
 }
@@ -80,4 +83,5 @@ li {
 a {
   color: #42b983;
 }
+
 </style>
