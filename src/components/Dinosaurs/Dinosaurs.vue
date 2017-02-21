@@ -3,9 +3,9 @@
     <header>{{title}}</header>
     <p>{{content}}</p>
     <div>
-      <input id="itemForm" type="text" placeholder="Dino name">
+      <input v-model="dinoName" id="itemForm" type="text" placeholder="Dino name">
       <input id="itemFormWeight" type="number" placeholder="Dino weight">
-      <button v-on:click="addItem">Add Dinosaur</button>
+      <button v-on:click="addItem">Add {{dinoName}}</button>
     </div>
     <div  v-if="dinos.length > 0">
       <ul>
@@ -63,7 +63,8 @@ export default {
       speciesUpdated: 0,
       dinosUpdated: 0,
       totalDinos: 0,
-      totalSpecies: 0
+      totalSpecies: 0,
+      dinoName: null
     }
   },
   watch: {
@@ -108,6 +109,7 @@ export default {
       this.dinos.push({ text: input.value, weight: inputWeight.value, quantity: 1 })
       input.value = ''
       inputWeight.value = ''
+      this.dinoName = null
     },
     deleteItem: function (index) {
       this.dinos.splice(index, 1)
