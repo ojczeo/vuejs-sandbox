@@ -1,13 +1,17 @@
 <template>
-  <div>
+  <div class="container">
     <header>{{title}}</header>
     <p>{{content}}</p>
-    <div>
-      <input v-model="dinoName" id="itemForm" type="text" placeholder="Dino name">
-      <input id="itemFormWeight" type="number" placeholder="Dino weight">
-      <button v-on:click="addItem">Add {{dinoName}}</button>
+    <div >
+      <div class="input-field">
+        <input v-model="dinoName" id="itemForm" type="text" placeholder="Dino name">
+      </div>
+      <div class="input-field">
+        <input id="itemFormWeight" type="number" placeholder="Dino weight">
+      </div>
+      <button v-on:click="addItem" class="btn">Add {{dinoName}}</button>
     </div>
-    <div  v-if="dinos.length > 0">
+    <div v-if="dinos.length > 0">
       <ul>
         <li v-for="(dino, index) in dinos">
 
@@ -17,23 +21,23 @@
             </a>
           </h4>
           <span>The {{dino.text}} weights {{dino.weight}}.</span>
-          <button v-on:click="deleteItem(index)" class="right">Make extinct</button>
+          <button v-on:click="deleteItem(index)" class="right btn red">Make extinct</button>
           <div class="left">
             Quantity
-            <button v-on:click="decrementDino(index)" v-if="dino.quantity > 0">-</button>
+            <button v-on:click="decrementDino(index)" v-if="dino.quantity > 0" class="btn btn-flat">-</button>
             {{dino.quantity}}
-            <button v-on:click="incrementDino(index)">+</button>
+            <button v-on:click="incrementDino(index)" class="btn btn-flat">+</button>
           </div>
         </li>
       </ul>
-      <ul>
-        <li>
+      <ul class="collection">
+        <li class="collection-item">
           Total dinos: {{ totalDinos }}
           <span class="right text-red">
             Updated: {{dinosUpdated}}
           </span>
         </li>
-        <li>
+        <li class="collection-item">
           Total species: {{ totalSpecies }}
           <span class="right text-red">
             Updated: {{speciesUpdated}}

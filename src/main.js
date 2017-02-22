@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+require('./stylesheets/materialize.config.scss')
 
 /* eslint-disable no-new */
 new Vue({
