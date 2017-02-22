@@ -21,11 +21,11 @@
       <div>
         <p>filter dinos by era</p>
         <div class="input=field">
-          <vSelect v-model="selectedPeriods" multiple>
-            <vOption v-for="period in periods" value="period.value">
+          <select v-model="selectedPeriods" multiple>
+            <option v-for="period in periods" value="period.value">
               {{ period.name }}
-            </vOption>
-          </vSelect>
+            </option>
+          </select>
         </div>
       </div>
       <ul>
@@ -70,8 +70,6 @@
 </template>
 
 <script>
-// import vSelect from 'vue-materialize/select'
-// import vOption from 'vue-materialize/select-option'
 
 export default {
   name: 'dinosaurs',
