@@ -1,7 +1,12 @@
 <template>
   <div class="container">
-    <header>{{title}}</header>
-    <p>{{content}}</p>
+    <header>
+      <h1>{{title}}</h1>
+      <p>
+        <input type="checkbox" id="checkbox" v-model="checked" />
+        <label for="checkbox">{{checked ? isChecked : isUnchecked }}</label>
+      </p>
+    </header>
     <div >
       <div class="input-field">
         <input v-model="dinoName" id="itemForm" type="text" placeholder="Dino name">
@@ -12,22 +17,35 @@
       <button v-on:click="addItem" class="btn">Add {{dinoName}}</button>
     </div>
     <div v-if="dinos.length > 0">
+      <h3>My dinos</h3>
+      <div>
+        <p>filter dinos by era</p>
+        <div class="input=field">
+          <vSelect v-model="selectedPeriods" multiple>
+            <vOption v-for="period in periods" value="period.value">
+              {{ period.name }}
+            </vOption>
+          </vSelect>
+        </div>
+      </div>
       <ul>
         <li v-for="(dino, index) in dinos">
-
-          <h4>
-            <a v-bind:href="url(dino.text)" target="_blank">
-              {{ dino.text}}
-            </a>
-          </h4>
-          <span>The {{dino.text}} weights {{dino.weight}}.</span>
-          <button v-on:click="deleteItem(index)" class="right btn red">Make extinct</button>
-          <div class="left">
-            Quantity
-            <button v-on:click="decrementDino(index)" v-if="dino.quantity > 0" class="btn btn-flat">-</button>
-            {{dino.quantity}}
-            <button v-on:click="incrementDino(index)" class="btn btn-flat">+</button>
-          </div>
+          <input type="radio" v-bind:value="dino" v-model="chosenDino" v-bind:id="dino.text + index" />
+          <label v-bind:for="dino.text + index">
+            <h4>
+              <a v-bind:href="url(dino.text)" target="_blank">
+                {{ dino.text}}
+              </a>
+            </h4>
+            <span>The {{dino.text}} weights {{dino.weight}}.</span>
+            <button v-on:click="deleteItem(index)" class="right btn">Make extinct</button>
+            <div class="left">
+              Quantity
+              <button v-on:click="decrementDino(index)" v-if="dino.quantity > 0" class="btn btn-flat">-</button>
+              {{dino.quantity}}
+              <button v-on:click="incrementDino(index)" class="btn btn-flat">+</button>
+            </div>
+          </label>
         </li>
       </ul>
       <ul class="collection">
@@ -52,23 +70,34 @@
 </template>
 
 <script>
+// import vSelect from 'vue-materialize/select'
+// import vOption from 'vue-materialize/select-option'
 
 export default {
   name: 'dinosaurs',
   data: () => {
     return {
-      title: 'dinosaurs',
-      content: 'molto bene',
+      title: 'Dinosaurs',
+      isChecked: 'are awesome',
+      isUnchecked: 'are poor - check if you not agree',
       dinos: [
         { text: 'Velociraptor', weight: 10, quantity: 1 },
         { text: 'Mastodont', weight: 10, quantity: 4 },
         { text: 'Paczkozaur', weight: 10, quantity: 2 }
       ],
+      periods: [
+        { name: 'Triassic', value: 1 },
+        { name: 'Jurassic', value: 2 },
+        { name: 'Cretaceous', value: 3 }
+      ],
+      selectedPeriods: [],
       speciesUpdated: 0,
       dinosUpdated: 0,
       totalDinos: 0,
       totalSpecies: 0,
-      dinoName: null
+      dinoName: null,
+      chosenDino: '',
+      checked: false
     }
   },
   watch: {
