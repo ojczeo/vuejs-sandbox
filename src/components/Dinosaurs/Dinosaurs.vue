@@ -7,14 +7,14 @@
         isChecked: 'are awesome',
         isUnchecked: 'are poor - check if you not agree',
         dinos: [
-          { text: 'Velociraptor', weight: 10, quantity: 1 },
-          { text: 'Mastodont', weight: 10, quantity: 4 },
-          { text: 'Paczkozaur', weight: 10, quantity: 2 }
+          {text: 'Velociraptor', weight: 10, quantity: 1},
+          {text: 'Mastodont', weight: 10, quantity: 4},
+          {text: 'Paczkozaur', weight: 10, quantity: 2}
         ],
         periods: [
-          { name: 'Triassic', value: 1 },
-          { name: 'Jurassic', value: 2 },
-          { name: 'Cretaceous', value: 3 }
+          {name: 'Triassic', value: 1},
+          {name: 'Jurassic', value: 2},
+          {name: 'Cretaceous', value: 3}
         ],
         selectedPeriods: [],
         speciesUpdated: 0,
@@ -23,12 +23,12 @@
         totalSpecies: 0,
         dinoName: null,
         chosenDino: '',
-        checked: false
+        checked: false,
+        cachedName: '',
+        cachedWeight: ''
       }
     },
-    watch: {
-
-    },
+    watch: {},
     computed: {
       totalDinos: function () {
         this.dinosUpdated += 1
@@ -62,10 +62,11 @@
       }
     },
     methods: {
-      addItem: function () {
-        const input = document.getElementById('itemForm')
-        const inputWeight = document.getElementById('itemFormWeight')
-        this.dinos.push({ text: input.value, weight: inputWeight.value, quantity: 1 })
+      addItem: function (event) {
+        console.log(event)
+        const input = document.getElementById('itemForm').getElementsByTagName('input')
+        const inputWeight = document.getElementById('itemFormWeight').getElementsByTagName('input')
+        this.dinos.push({text: input.value, weight: inputWeight.value, quantity: 1})
         input.value = ''
         inputWeight.value = ''
         this.dinoName = null
@@ -95,4 +96,7 @@
 <template src="./Dinosaurs.html">
 </template>
 <style scoped>
+  ul {
+    list-style: none;
+  }
 </style>

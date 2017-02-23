@@ -1,68 +1,75 @@
 <div class="container">
   <header>
-  <h1>{{title}}</h1>
-<p>
-<input type="checkbox" id="checkbox" v-model="checked" />
-  <label for="checkbox">{{checked ? isChecked : isUnchecked }}</label>
-</p>
-</header>
-<div >
-<div class="input-field">
-  <input v-model="dinoName" id="itemForm" type="text" placeholder="Dino name">
-  </div>
-  <div class="input-field">
-  <input id="itemFormWeight" type="number" placeholder="Dino weight">
-  </div>
-  <button v-on:click="addItem" class="btn">Add {{dinoName}}</button>
-</div>
-<div v-if="dinos.length > 0">
-  <h3>My dinos</h3>
-<div>
-<p>filter dinos by era</p>
-<div class="input=field">
-  <select v-model="selectedPeriods" multiple>
-<option v-for="period in periods" value="period.value">
-  {{ period.name }}
-</option>
-</select>
-</div>
-</div>
-<ul>
-<li v-for="(dino, index) in dinos">
-  <input type="radio" v-bind:value="dino" v-model="chosenDino" v-bind:id="dino.text + index" />
-  <label v-bind:for="dino.text + index">
-  <h4>
-  <a v-bind:href="url(dino.text)" target="_blank">
-  {{ dino.text}}
-</a>
-</h4>
-<span>The {{dino.text}} weights {{dino.weight}}.</span>
-<button v-on:click="deleteItem(index)" class="right btn">Make extinct</button>
-<div class="left">
-  Quantity
-  <button v-on:click="decrementDino(index)" v-if="dino.quantity > 0" class="btn btn-flat">-</button>
-  {{dino.quantity}}
-<button v-on:click="incrementDino(index)" class="btn btn-flat">+</button>
-  </div>
-  </label>
-  </li>
-  </ul>
-  <ul class="collection">
-  <li class="collection-item">
-  Total dinos: {{ totalDinos }}
-<span class="right text-red">
+    <h1>{{title}}</h1>
+    <p>
+      <el-checkbox type="checkbox" id="checkbox" v-model="checked"/>
+      <label for="checkbox">{{checked ? isChecked : isUnchecked }}</label>
+    </p>
+  </header>
+  <form :submit="addItem" v-on:submit.prevent="onSubmit">
+    <div>
+      <el-input v-model="dinoName" value="cachedName" type="text" placeholder="Dino name">
+    </div>
+    <div>
+      <el-input value="cachedWeight" type="number" placeholder="Dino weight">
+    </div>
+    <el-button native-type="submit">Add {{dinoName}}</el-button>
+  </form>
+  <div v-if="dinos.length > 0">
+    <h3>My dinos</h3>
+    <div>
+      <p>filter dinos by era</p>
+      <div class="input=field">
+        <el-select v-model="selectedPeriods" multiple placeholder="Select">
+          <el-option
+            v-for="period in periods"
+            :label="period.name"
+            :value="period.value">
+          </el-option>
+        </el-select>
+        <!--<select v-model="selectedPeriods" multiple>-->
+          <!--<option v-for="period in periods" value="period.value">-->
+            <!--{{ period.name }}-->
+          <!--</option>-->
+        <!--</select>-->
+      </div>
+    </div>
+    <ul>
+      <li v-for="(dino, index) in dinos">
+        <el-radio  type="radio" v-bind:value="dino" v-model="chosenDino" v-bind:id="dino.text + index"/>
+        <label v-bind:for="dino.text + index">
+          <h4>
+            <a v-bind:href="url(dino.text)" target="_blank">
+              {{ dino.text}}
+            </a>
+          </h4>
+          <span>The {{dino.text}} weights {{dino.weight}}.</span>
+          <el-button v-on:click="deleteItem(index)" class="right btn">Make extinct</el-button>
+          <div class="left">
+            Quantity
+            <el-button v-on:click="decrementDino(index)" v-if="dino.quantity > 0" class="btn btn-flat">-</el-button>
+            {{dino.quantity}}
+            <el-button v-on:click="incrementDino(index)" class="btn btn-flat">+</el-button>
+          </div>
+        </label>
+      </li>
+    </ul>
+    <ul class="collection">
+      <li class="collection-item">
+        Total dinos: {{ totalDinos }}
+        <span class="right text-red">
   Updated: {{dinosUpdated}}
 </span>
-</li>
-<li class="collection-item">
-  Total species: {{ totalSpecies }}
-<span class="right text-red">
+      </li>
+      <li class="collection-item">
+        Total species: {{ totalSpecies }}
+        <span class="right text-red">
   Updated: {{speciesUpdated}}
 </span>
-</li>
-</ul>
-</div>
-<p v-else>
-No dinosaurs
-</p>
+      </li>
+    </ul>
+  </div>
+  <p v-else>
+    No dinosaurs
+  </p>
 </div>
