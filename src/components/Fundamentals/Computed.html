@@ -1,0 +1,30 @@
+<div class="container">
+  <h1 class="computed">Computed</h1>
+  <h2>{{fullname}}</h2>
+  <input v-model="first" placeholder="Firstname" />
+  <input v-model="last" placeholder="Lastname" />
+  <input v-model="fullname" placeholder="Fullname" />
+  <div class="">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h4>You are a <strong>{{level}}</strong></h4>
+        <hr />
+        <h5>Current XP: {{xp}}</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="">
+        <div class="row">
+          <div class="">
+            <button class="btn" @click="addXP">Add XP</button>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <button class="btn" @click="decreaseXP"> Decrease XP</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
